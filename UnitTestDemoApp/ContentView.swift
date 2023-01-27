@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var vm = ViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        Form {
+            VStack(spacing: 20) {
+                Text("\(vm.convertedText)")
+                    .font(.headline)
+                TextField("Enter a value.", text: $vm.text)
+                    .textFieldStyle(.roundedBorder)
+                    .keyboardType(.decimalPad)
+                    .submitLabel(.done)
+                Button("Convert") {
+                    vm.convertMoney()
+                }
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
